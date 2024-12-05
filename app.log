@@ -1,0 +1,872 @@
+{
+    "assignments": {
+        "columns": [
+            {
+                "name": "assignment_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "course_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "title",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "description",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "due_date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "max_score",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "assignment_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "course_id",
+                "referred_table": "courses",
+                "referred_column": "course_id"
+            }
+        ]
+    },
+    "attendance": {
+        "columns": [
+            {
+                "name": "attendance_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "student_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "course_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "status",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "remarks",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "attendance_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "student_id",
+                "referred_table": "students",
+                "referred_column": "student_id"
+            },
+            {
+                "column": "course_id",
+                "referred_table": "courses",
+                "referred_column": "course_id"
+            }
+        ]
+    },
+    "books": {
+        "columns": [
+            {
+                "name": "book_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "title",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "library_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "author",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "genre",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "published_year",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "isbn",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "book_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "library_id",
+                "referred_table": "libraries",
+                "referred_column": "library_id"
+            }
+        ]
+    },
+    "borrow_records": {
+        "columns": [
+            {
+                "name": "borrow_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "student_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "library_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "book_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "borrow_date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "return_date",
+                "type": "DATE",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "borrow_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "student_id",
+                "referred_table": "students",
+                "referred_column": "student_id"
+            },
+            {
+                "column": "library_id",
+                "referred_table": "libraries",
+                "referred_column": "library_id"
+            }
+        ]
+    },
+    "club_memberships": {
+        "columns": [
+            {
+                "name": "membership_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "student_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "club_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "join_date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "role",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "membership_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "student_id",
+                "referred_table": "students",
+                "referred_column": "student_id"
+            },
+            {
+                "column": "club_id",
+                "referred_table": "clubs",
+                "referred_column": "club_id"
+            }
+        ]
+    },
+    "clubs": {
+        "columns": [
+            {
+                "name": "club_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "club_name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "description",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "president_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "meeting_schedule",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "club_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "president_id",
+                "referred_table": "students",
+                "referred_column": "student_id"
+            }
+        ]
+    },
+    "courses": {
+        "columns": [
+            {
+                "name": "course_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "course_name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "course_code",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "department",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "credits",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "semester",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "instructor",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "syllabus",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "max_enrollment",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "current_enrollment",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "start_date",
+                "type": "DATE",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "end_date",
+                "type": "DATE",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "course_id"
+        ],
+        "foreign_keys": []
+    },
+    "departments": {
+        "columns": [
+            {
+                "name": "department_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "department_name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "head_of_department",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "contact_email",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "department_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "head_of_department",
+                "referred_table": "teachers",
+                "referred_column": "teacher_id"
+            }
+        ]
+    },
+    "enrollments": {
+        "columns": [
+            {
+                "name": "enrollment_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "student_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "course_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "enrollment_date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "status",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "grade",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "feedback",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "enrollment_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "student_id",
+                "referred_table": "students",
+                "referred_column": "student_id"
+            },
+            {
+                "column": "course_id",
+                "referred_table": "courses",
+                "referred_column": "course_id"
+            }
+        ]
+    },
+    "exam_results": {
+        "columns": [
+            {
+                "name": "result_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "exam_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "student_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "score",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "grade",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "comments",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "result_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "exam_id",
+                "referred_table": "exams",
+                "referred_column": "exam_id"
+            },
+            {
+                "column": "student_id",
+                "referred_table": "students",
+                "referred_column": "student_id"
+            }
+        ]
+    },
+    "exams": {
+        "columns": [
+            {
+                "name": "exam_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "course_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "exam_name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "exam_date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "max_score",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "average_score",
+                "type": "REAL",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "exam_location",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "duration_minutes",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "type",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "remarks",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "exam_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "course_id",
+                "referred_table": "courses",
+                "referred_column": "course_id"
+            }
+        ]
+    },
+    "libraries": {
+        "columns": [
+            {
+                "name": "library_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "location",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "librarian_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "library_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "librarian_id",
+                "referred_table": "teachers",
+                "referred_column": "teacher_id"
+            }
+        ]
+    },
+    "students": {
+        "columns": [
+            {
+                "name": "student_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "first_name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "last_name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "date_of_birth",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "gender",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "email",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "phone_number",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "address",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "city",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "state",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "zip_code",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "registration_date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "student_id"
+        ],
+        "foreign_keys": []
+    },
+    "submissions": {
+        "columns": [
+            {
+                "name": "submission_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "assignment_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "student_id",
+                "type": "INTEGER",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "submission_date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "score",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "feedback",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "submission_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "assignment_id",
+                "referred_table": "assignments",
+                "referred_column": "assignment_id"
+            },
+            {
+                "column": "student_id",
+                "referred_table": "students",
+                "referred_column": "student_id"
+            }
+        ]
+    },
+    "teachers": {
+        "columns": [
+            {
+                "name": "teacher_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "first_name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "last_name",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "department",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "hire_date",
+                "type": "DATE",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "email",
+                "type": "TEXT",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "phone_number",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "address",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "salary",
+                "type": "REAL",
+                "nullable": false,
+                "default": null
+            },
+            {
+                "name": "expertise",
+                "type": "TEXT",
+                "nullable": true,
+                "default": null
+            },
+            {
+                "name": "supervisor_id",
+                "type": "INTEGER",
+                "nullable": true,
+                "default": null
+            }
+        ],
+        "primary_key": [
+            "teacher_id"
+        ],
+        "foreign_keys": [
+            {
+                "column": "supervisor_id",
+                "referred_table": "teachers",
+                "referred_column": "teacher_id"
+            }
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload >> app.log'
+    volumes:
+      - .:/app
+    ports:
+      - 8008:8000
+      - 5678:5678
+    environment:
+      - DATABASE_URL=sqlite:///student_performance.db
+      - APP_ENV=dev
+    networks:
+      dev:
+        ipv4_address: 172.28.1.12
+networks:
+  dev:
+    name: dev-network
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/17
