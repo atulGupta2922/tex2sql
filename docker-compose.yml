@@ -3,11 +3,11 @@ version: "3.8"
 services:
   web:
     build: .
-    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload >> app.log'
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; tail -f /app/app.log'
     volumes:
       - .:/app
     ports:
-      - 8008:8000
+      - 8000:8000
       - 5678:5678
     environment:
       - DATABASE_URL=sqlite:///student_performance.db

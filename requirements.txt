@@ -4,3 +4,11 @@ sqlalchemy==2.0.22
 psycopg2-binary==2.9.9
 pandas==2.1.2
 openai==1.31.0
+sqlparse==0.5.2
+passlib==1.7.4
+python-multipart==0.0.19
+email-validator==2.2.0
+pyjwt==2.8.0
+pymysql 
+psycopg2 
+pyodbc

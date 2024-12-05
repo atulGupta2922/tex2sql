@@ -5,16 +5,17 @@ from constants import const
 
 class Txt2SQLEngine():
     
-    def __init__(self):
+    def __init__(self,user_id):
         self.client = OpenAI(
-            organization='org-0WiJlDAVVOIh4oaisiP49G17',
-            project='proj_gWaFdgg8GJTA5FX404f8ooWO',
-            api_key='sk-esgate-openai-service-id-dev-bs9EG2Y0QBja7WGt30QbT3BlbkFJImJ2oS36x8cbc90agRj2'
+            organization=const.organization,
+            project=const.project,
+            api_key=const.api_key
         )
-        assistant_id = "asst_nVrytkzJcAMWfho5FkQpl6yL"  # Replace with your assistant's unique ID
-        self.assistant = self.client.beta.assistants.retrieve(assistant_id)
-        self.db = sqlite3.connect(const.db_path)
         
+        assistant_id = const.assistant_id
+        self.assistant = self.client.beta.assistants.retrieve(assistant_id)
+        self.db = sqlite3.connect(const.db_url)
+        self.schema_json=self.get_user_db_schema(user_id)
         
         
     def save_thread_for_user(self, user_id, thread_id, assistant_id):
@@ -34,22 +35,21 @@ class Txt2SQLEngine():
         result = self.db.execute(query, (user_id,)).fetchone()
         return result if result else None
    
-
+    def get_user_db_schema(self,user_id):
+        query = "SELECT user_db.db_schema FROM user_db, user WHERE user.org_id= user_db.org_id and user.user_id=%s"
+        result = self.db.execute(query, (user_id,)).fetchone()
+        return result if result else None
+    
+    
     def txt2sql(self,user_prompt,user_id):
         #getting thread for user
         user_thread = self.get_thread_for_user(user_id)
     
         if user_thread is None:
             
-            #fetching db schema
-            schema_json = get_db_schema_as_json(db_url)
-            
-            
             # Create a new thread for the user
             txt2sql_assistant = self.client.beta.assistants.retrieve(self.assistant)
             thread = self.client.beta.threads.create()
-            instructions=""
-            
             
             
             # Save the thread with user association
@@ -67,9 +67,20 @@ class Txt2SQLEngine():
         run = self.client.beta.threads.runs.create_and_poll(
                     thread_id=thread.id,
                     assistant_id=txt2sql_assistant.id,
-                    instructions=""
+                    instructions=f"""
+                    You are an Expert Database administrator with experience in writing complex SQL queries.
+                    Below is the database schema for reference:
+                    {self.schema_json}
+                    You need to provide a syntactically correct SQL query that can be run to retrieve the expected result.
+                    """
                     )
         
-        
+        assistant_response = run["output"]
+
+        # Print the assistant's response
+        print("Assistant Response:", assistant_response)
+
+        return assistant_response
+
         
         

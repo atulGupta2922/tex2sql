@@ -39,7 +39,7 @@ CREATE TABLE enrollments (
     student_id INTEGER NOT NULL,
     course_id INTEGER NOT NULL,
     enrollment_date DATE NOT NULL,
-    status TEXT CHECK (status IN ('Active', 'Completed', 'Dropped')),
+    status TEXT CHECK (status IN ('Active', 'Completedls', 'Dropped')),
     grade TEXT CHECK (grade IN ('A', 'B', 'C', 'D', 'F', NULL)),
     feedback TEXT,
     FOREIGN KEY (student_id) REFERENCES students(student_id),
