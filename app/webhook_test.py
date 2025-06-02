@@ -74,17 +74,16 @@ def delete_student(student_id):
         print(f"Error: {e}")
     finally:
         conn.close()
-
-def get_student(student_id):
-    db_path = 'student_performance.db'
-    try:
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM students WHERE id = ?", (student_id,))
-        row = cursor.fetchone()
-        print(row)
-        return row
-    except Exception as e:
-        print(f"Error: {e}")
-    finally:
-        conn.close()
+        
+        
+#     result = AdminService().delete_user_db(id, current_user)
+#     return {
+#             'success': result['success'],
+#             'message': result['message'],
+#             'data':  result.get('data',[])
+#         }
+#     return {
+#             'success': True,
+#             'message': 'User DB deleted successfully',
+#             'data': []
+#         }
