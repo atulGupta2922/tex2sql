@@ -325,3 +325,21 @@ class Txt2SQLEngine():
             response={"result":explanation}
             result={'success':False,'message':explanation,'data':[response]} 
         return result
+    
+    def get_table_columns(self, user, table_name):
+        """
+        Returns the list of columns for a given table in the user's database schema.
+        """
+        db_schema_json = self.app_db.get_user_db(user[8])
+        if not db_schema_json or len(db_schema_json) < 3:
+            return []
+        schema = db_schema_json[2]
+        if isinstance(schema, str):
+            try:
+                schema = json.loads(schema)
+            except Exception:
+                return []
+        for table in schema.get("tables", []):
+            if table.get("name") == table_name:
+                return [col.get("name") for col in table.get("columns", [])]
+        return []
